@@ -72,6 +72,12 @@ const example = (function() {
 		sphere.rotation.x = 45;
 		sphere.castShadow = true;
 		sphere.name = 'the sphere';
+		sphere.animation = function(){
+			if(this.goRight)
+				this.position.x += 0.5;
+			else
+				this.position.x -= .5
+		}
 		scene.add(sphere);
 
 		var geometry = new THREE.PlaneGeometry( 300, 300, 300 );
@@ -97,17 +103,12 @@ const example = (function() {
 
 		sphere.rotation.y += 0.01;
 
-		if(sphere.goRight)
-			sphere.position.x += 0.5;
-		else
-			sphere.position.x -= .5
+		sphere.animation();
 
 		if(sphere.position.x < -30)
 			sphere.goRight = true;
 		if(sphere.position.x > 30)
 			sphere.goRight = false;
-		// if(sphere.position.x < window.innerWidth/2)
-		// 	sphere.position.x = 10;
 
 		renderer.render(scene, camera);
 		requestAnimationFrame(render);
