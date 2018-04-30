@@ -2,7 +2,7 @@ const example = (function() {
 	'use strict'; 
 	var scene = new THREE.Scene();
 	var renderer = window.WebGLRenderingContext ? new THREE.WebGLRenderer() : new THREE.canvasRenderer();
-	var light = new THREE.PointLight(0xddc254, .3, 100); // color, intensity. distance
+	var light = new THREE.PointLight(0xddc254, .8, 100); // color, intensity. distance
 	var ambientLight = new THREE.AmbientLight( 0xf4efdc, 1 ); // color, intensity 
 	var camera;
 	var boxes = [];
@@ -13,15 +13,15 @@ const example = (function() {
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.shadowMapEnabled = true;
 		renderer.shadowMap.type = THREE.BasicShadowMap;
-		renderer.shadowMapSoft = true;
+		// renderer.shadowMapSoft = true;
 		
 		document.getElementById('web-gl-container').appendChild(renderer.domElement);
 
-		light.position.set(-50, 50, 0);
+		light.position.set(-50, 10, 0);
 		light.castShadow = true;
 		light.shadow.camera.near = 0.1;    
 		light.shadow.camera.far = 250;  
-		light.power = 10*Math.PI;
+		light.power = 20*Math.PI;
 
 		scene.add(light);
 		scene.add( ambientLight );
@@ -43,7 +43,7 @@ const example = (function() {
 			for (let i = 0; i < qty; i++) {
 				var box = new THREE.Mesh(
 					new THREE.BoxGeometry(size, size, size),
-					new THREE.MeshPhongMaterial({
+					new THREE.MeshLambertMaterial({
 						color: 0xffff00,
 						wireframe: USE_WIREFRAME
 					})
@@ -59,7 +59,7 @@ const example = (function() {
 
 		addABunchOfBoxes(20, 3);
 
-		// var sphereMaterial = new THREE.MeshPhongMaterial({
+		// var sphereMaterial = new THREE.MeshLambertMaterial({
 		// 	color: 0xf4f4f4,
 		// 	wireframe: USE_WIREFRAME			
 		// });
